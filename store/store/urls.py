@@ -19,5 +19,6 @@ from django.urls import path
 from market import views
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('product/', views.product_list, name='product_list'),
+    # path('product/', views.product_list, name='product_list'),
+    path('product/', views.ProductListView.as_view(), name='product_list'),
 ]
