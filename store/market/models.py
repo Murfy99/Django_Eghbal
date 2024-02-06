@@ -6,14 +6,18 @@ class Product(models.Model):
     name = models.CharField(max_length = 255)
     price = models.PositiveIntegerField()
     count = models.PositiveIntegerField()
-    description = models.TextField()
+    description = models.TextField(null=True)
     create_date = models.DateTimeField(auto_now_add = True)
     last_edit_date = models.DateTimeField(auto_now = True)
     uuid = models.UUIDField(default = uuid.uuid4, primary_key=True)
     # discount = models.DecimalField(decimal_places=3)
     category = models.ForeignKey('Category', on_delete=models.PROTECT)
+    image = models.ImageField(upload_to="product_images/%Y/%m/%d", null=True, blank=True)
 
-    
+
+    def __str__(self) -> str:
+        return self.name
+
 # class Comment(models.Model):
 #     product = models.ForeignKey(Product, on_delete=models.CASCADE)
 #     text = models.TextField()
@@ -25,7 +29,16 @@ class Category(models.Model):
     category_name = models.CharField(max_length = 25)
     parent = models.ForeignKey('Category', on_delete=models.CASCADE,
                                null = True, blank = True)
+    def __str__(self) -> str:
+        return self.category_name
     # null , blank baraye inke majbor nabashim hame parent dashte bashan
 # class Tag(models.Model):
     # product = models.ManyToManyRel(Product, on_delete=models.CASCADE)
 #     tag_name = models.CharField(max_length = 25)
+    
+from market.models import *
+objects =[]
+cat = Category.objects.last()
+for i in range(100):
+    objects.append(Product(name=f"p_{i}",price=i*10,count=i+5,category=cat))
+Product.objects.bulk_create(objects)
