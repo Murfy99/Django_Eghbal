@@ -1,5 +1,13 @@
 from django.db import models
 import uuid
+from django.utils import timezone
+import os
+
+def _get_file_name(obj,file):
+    name = uuid.uuid4()
+    ext = os.path.splitext(file)[1].lower()
+    path = timezone.now().strftime("product_images/%Y/%m/%d")
+    return os.path.join(path,f'{name}{ext}')
 
 # Create your models here.
 class Product(models.Model):
@@ -12,7 +20,7 @@ class Product(models.Model):
     uuid = models.UUIDField(default = uuid.uuid4, primary_key=True)
     # discount = models.DecimalField(decimal_places=3)
     category = models.ForeignKey('Category', on_delete=models.PROTECT)
-    image = models.ImageField(upload_to="product_images/%Y/%m/%d", null=True, blank=True)
+    image = models.ImageField(upload_to=_get_file_name, null=True, blank=True)
 
 
     def __str__(self) -> str:

@@ -1,10 +1,9 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>dish dish </title>
-  </head>
-  <body>
-        <p>Hello pppppp</p>
-        {{username}}
-  </body>
-</html>
+{%extends 'base.html'%}
+
+{%block page_body%}
+{%for p in products %}
+    {{p.name}}
+    {{p.price}}
+<hr/>
+{% endfor %}
+{% endblock %}

@@ -1,9 +1,9 @@
 from django.shortcuts import render
-
+from .models import *
 # Create your views here.
 def product_list(request):
-    name = "ali"
+    objs = Product.objects.all()
     contex = {
-        'username': name
+        'products': objs
     }
     return render(request, 'product_list.html', context=contex)
