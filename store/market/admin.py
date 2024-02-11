@@ -4,7 +4,7 @@ from . import models
 
 class ProductAdmin(admin.ModelAdmin):
     readonly_fields = ('uuid',)
-    list_display = ('name','price','count','category')
+    list_display = ('name','price','count','category',)
     list_filter = ('price',)
     search_fields = ('name','price',)
 class CategoryAdmin(admin.ModelAdmin):

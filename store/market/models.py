@@ -19,6 +19,7 @@ class Product(models.Model):
     last_edit_date = models.DateTimeField(auto_now = True)
     uuid = models.UUIDField(default = uuid.uuid4, primary_key=True)
     # discount = models.DecimalField(decimal_places=3)
+    # enable = models.BooleanField(default=True)
     category = models.ForeignKey('Category', on_delete=models.PROTECT)
     image = models.ImageField(upload_to=_get_file_name, null=True, blank=True)
 
