@@ -2,7 +2,7 @@ from django.contrib import admin
 from . import models
 # Register your models here.
 
-class AdminUser(admin.ModelAdmin):
-    ...
+@admin.register(models.User)
+class UserAdmin(admin.ModelAdmin):
+    list_display = ('username', 'email', 'has_profile', 'is_staff', 'is_superuser')
 
-admin.site.register(models.User, AdminUser )
