@@ -23,6 +23,11 @@
                     <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
                 </button>
             </form>
+            {%if user.authenticated%}
+                Hello {{user.first}}
+            {%else%}
+                <a class = "btn btn-secondary m-1" href ="{% url 'login'%}">Login</a>
+            {%endif%}
         </div>
     </div>
 </nav>
