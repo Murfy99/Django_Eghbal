@@ -2,6 +2,11 @@ from django.db import models
 import uuid
 from django.utils import timezone
 import os
+# from account.models import User
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
+
 
 def _get_file_name(obj,file):
     name = uuid.uuid4()
@@ -51,3 +56,13 @@ cat = Category.objects.last()
 for i in range(100):
     objects.append(Product(name=f"p_{i}",price=i*10,count=i+5,category=cat))
 Product.objects.bulk_create(objects)
+
+
+class Comment(models.Model):
+    user = models.ForeignKey(User,related_name='comments',
+                                on_delete = models.PROTECT)
+    date = models.DateTimeField(auto_now_add=True)
+    body = models.TextField()
+    is_published = models.BooleanField(default = False)
+    product = models.ForeignKey('Product',related_name='comments',
+                                on_delete = models.CASCADE)

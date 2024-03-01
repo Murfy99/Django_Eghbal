@@ -18,8 +18,11 @@ from django.contrib import admin
 from django.urls import path, include
 from market import views
 urlpatterns = [
+    
+    path('api-auth/', include('rest_framework.urls')),
     path('admin/', admin.site.urls),
     # path('product/', views.product_list, name='product_list'),
-    path('product/', views.ProductListView.as_view(), name='product_list'),
+    path('product/', include('market.urls',namespace='product')),
+    path('account/', include('account.urls')),
     path('account/', include('django.contrib.auth.urls')),
 ]
